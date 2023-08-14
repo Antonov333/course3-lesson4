@@ -6,10 +6,10 @@ import com.thedeanda.lorem.Lorem;
 import com.thedeanda.lorem.LoremIpsum;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import pro.sky.course3lesson2.exception.StudentAlreadyExistsException;
-import pro.sky.course3lesson2.exception.StudentNotFoundException;
-import pro.sky.course3lesson2.model.Student;
-import pro.sky.course3lesson2.repository.StudentRepository;
+import pro.sky.course3lesson4.exception.StudentAlreadyExistsException;
+import pro.sky.course3lesson4.exception.StudentNotFoundException;
+import pro.sky.course3lesson4.model.Student;
+import pro.sky.course3lesson4.repository.StudentRepository;
 
 import java.util.List;
 import java.util.Random;

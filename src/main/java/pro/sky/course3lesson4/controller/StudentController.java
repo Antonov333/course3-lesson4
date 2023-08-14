@@ -1,8 +1,8 @@
 package pro.sky.course3lesson4.controller;
 
 import org.springframework.web.bind.annotation.*;
-import pro.sky.course3lesson2.model.Student;
-import pro.sky.course3lesson2.service.StudentService;
+import pro.sky.course3lesson4.model.Student;
+import pro.sky.course3lesson4.service.StudentService;
 
 import java.util.List;
 

@@ -3,8 +3,8 @@ package pro.sky.course3lesson4.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import pro.sky.course3lesson2.model.Faculty;
-import pro.sky.course3lesson2.service.FacultyService;
+import pro.sky.course3lesson4.model.Faculty;
+import pro.sky.course3lesson4.service.FacultyService;
 
 import java.util.Collection;
 import java.util.HashMap;

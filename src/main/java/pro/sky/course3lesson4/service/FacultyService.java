@@ -2,9 +2,9 @@ package pro.sky.course3lesson4.service;
 
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
-import pro.sky.course3lesson2.exception.FacultyNotFoundException;
-import pro.sky.course3lesson2.model.Faculty;
-import pro.sky.course3lesson2.repository.FacultyRepository;
+import pro.sky.course3lesson4.exception.FacultyNotFoundException;
+import pro.sky.course3lesson4.model.Faculty;
+import pro.sky.course3lesson4.repository.FacultyRepository;
 
 import java.util.HashMap;
 import java.util.List;
