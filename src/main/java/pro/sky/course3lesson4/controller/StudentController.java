@@ -1,6 +1,7 @@
 package pro.sky.course3lesson4.controller;
 
 import org.springframework.web.bind.annotation.*;
+import pro.sky.course3lesson4.model.Faculty;
 import pro.sky.course3lesson4.model.Student;
 import pro.sky.course3lesson4.service.StudentService;
 
@@ -16,7 +17,7 @@ public class StudentController {
         this.students = students;
     }
 
-    @GetMapping
+    @GetMapping()
     public List<Student> viewStudents() {
         return students.getStudents();
     }
@@ -26,19 +27,19 @@ public class StudentController {
         return students.loadExampleStudents(number);
     }
 
-    @PostMapping(path = "/post")
+    @PostMapping()
     public Student create(@RequestBody Student student) {
         Student createdStudent = students.createStudent(student);
         return createdStudent;
     }
 
-    @PutMapping(path = "/put")
+    @PutMapping()
     public Student putStudent(@RequestBody Student student) {
         Student updatedStudent = students.updateStudent(student.getId(), student.getName(), student.getAge());
         return updatedStudent;
     }
 
-    @DeleteMapping(path = "/delete")
+    @DeleteMapping()
     public Student expel(Student student) {
         Student expelledStudent = students.sendDown(student);
         return expelledStudent;
@@ -49,4 +50,16 @@ public class StudentController {
         List<Student> selected = students.selectedByAge(age);
         return selected;
     }
+
+    @GetMapping("/agebetween")
+    public List<Student> selectByAgeBetween(@RequestParam(name = "a") int a,
+                                            @RequestParam(name = "b") int b) {
+        return students.selectedByAgeBetween(a, b);
+    }
+
+    @GetMapping("/faculty/{studentId}")
+    public Faculty getStudentFaculty(@PathVariable("studentId") long studentId) {
+        return students.getStudentFaculty(studentId);
+    }
+
 }

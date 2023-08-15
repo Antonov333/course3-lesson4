@@ -2,6 +2,7 @@ package pro.sky.course3lesson4.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import pro.sky.course3lesson4.model.Faculty;
 import pro.sky.course3lesson4.model.Student;
 
 import java.util.List;
@@ -10,5 +11,8 @@ import java.util.List;
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
     List<Student> findAllByAge(int age);
+
+    List<Student> findByAgeBetween(int min, int max);
+
 
 }

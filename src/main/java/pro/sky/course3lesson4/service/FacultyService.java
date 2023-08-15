@@ -4,6 +4,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import pro.sky.course3lesson4.exception.FacultyNotFoundException;
 import pro.sky.course3lesson4.model.Faculty;
+import pro.sky.course3lesson4.model.Student;
 import pro.sky.course3lesson4.repository.FacultyRepository;
 
 import java.util.HashMap;
@@ -45,6 +46,10 @@ public class FacultyService {
         return facultyRepository.save(existingFaculty);
     }
 
+    public List<Faculty> findByNameCaseTolerant(String name) {
+        return facultyRepository.findAllByNameIgnoreCase(name);
+    }
+
     public HashMap<Long, Faculty> loadExampleFaculties() {
         final int one = 1, two = 2, three = 3, four = 4, five = 5, six = 6;
         final String silver = "silver",
@@ -78,6 +83,11 @@ public class FacultyService {
                 facultyRepository.findOne(facultyExample).orElseThrow(FacultyNotFoundException::new);
         facultyRepository.delete(faculty);
         return deletedFaculty;
+    }
+
+    public List<Student> getStudentList(long facultyId) {
+        Faculty faculty = facultyRepository.findById(facultyId).orElseThrow(FacultyNotFoundException::new);
+        return faculty.getStudents();
     }
 
 }

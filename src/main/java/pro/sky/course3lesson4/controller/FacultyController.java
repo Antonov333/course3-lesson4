@@ -4,6 +4,7 @@ package pro.sky.course3lesson4.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.course3lesson4.model.Faculty;
+import pro.sky.course3lesson4.model.Student;
 import pro.sky.course3lesson4.service.FacultyService;
 
 import java.util.Collection;
@@ -26,8 +27,7 @@ public class FacultyController {
 
     @GetMapping(path = "/{id}")
     public Faculty getFacultyById(@PathVariable long id) {
-        long facultyId = id;
-        return facultyService.getById(facultyId);
+        return facultyService.getById(id);
     }
 
     @GetMapping(path = "/color/{color}")
@@ -35,7 +35,7 @@ public class FacultyController {
         return facultyService.getFacultiesByColor(color);
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<Faculty> createFaculty(@RequestBody Faculty faculty) {
         Faculty createdFaculty = facultyService.createFaculty(faculty);
         return ResponseEntity.ok(createdFaculty);
@@ -50,13 +50,23 @@ public class FacultyController {
         return ResponseEntity.ok(updatedFaculty);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Faculty delete(@RequestParam("id") long id) {
         return facultyService.deleteFaculty(id);
+    }
+
+    @GetMapping(path = "/nameIgnoreCase")
+    public List<Faculty> findAllByNameIgnoreCase(@RequestParam(name = "name") String name) {
+        return facultyService.findByNameCaseTolerant(name);
     }
 
     @GetMapping(path = "/load")
     public HashMap<Long, Faculty> load() {
         return facultyService.loadExampleFaculties();
+    }
+
+    @GetMapping(path = "/students/{facultyId}")
+    public List<Student> getFacultyStudentList(@PathVariable("facultyId") long facultyId) {
+        return facultyService.getStudentList(facultyId);
     }
 }

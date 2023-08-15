@@ -8,6 +8,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import pro.sky.course3lesson4.exception.StudentAlreadyExistsException;
 import pro.sky.course3lesson4.exception.StudentNotFoundException;
+import pro.sky.course3lesson4.model.Faculty;
 import pro.sky.course3lesson4.model.Student;
 import pro.sky.course3lesson4.repository.StudentRepository;
 
@@ -23,8 +24,6 @@ public class StudentService {
         this.studentRepository = studentRepository;
     }
 
-    //    CRUD
-
     public Student createStudent(Student student) {
         Example<Student> studentExample = Example.of(student);
         if (studentRepository.exists(studentExample)) {
@@ -33,13 +32,8 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Student readStudent(long id) {
-        return studentRepository.findById(Long.valueOf(id)).orElseThrow(StudentNotFoundException::new);
-    }
-
     public Student updateStudent(long id, String newName, int newAge) {
-        Long idLong = Long.valueOf(id);
-        Student existingStudent = studentRepository.findById(idLong).orElseThrow(StudentNotFoundException::new);
+        Student existingStudent = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
         if (newName != null) {
             existingStudent.setName(newName);
         }
@@ -47,10 +41,6 @@ public class StudentService {
             existingStudent.setAge(newAge);
         }
         return studentRepository.save(existingStudent);
-    }
-
-    public List<Student> getByAge(int age) {
-        return studentRepository.findAll().stream().filter(s -> s.getAge() == age).toList();
     }
 
     public List<Student> getStudents() {
@@ -65,13 +55,36 @@ public class StudentService {
     }
 
     public Student sendDown(Student student) {
-        Student expelledStudent = student;
         studentRepository.delete(student);
-        return expelledStudent;
+        return student;
     }
 
     public List<Student> selectedByAge(int age) {
         return studentRepository.findAllByAge(age);
+    }
+
+    public List<Student> selectedByAgeBetween(int a, int b) {
+
+        if (a == b) {
+            return studentRepository.findAllByAge(a);
+        }
+
+        int min, max;
+        if (a < b) {
+            min = a;
+            max = b;
+        } else {
+            min = b;
+            max = a;
+        }
+
+        return studentRepository.findByAgeBetween(min, max);
+
+    }
+
+    public Faculty getStudentFaculty(long id) {
+        Student student = studentRepository.findById(id).orElseThrow(StudentNotFoundException::new);
+        return student.getFaculty();
     }
 
     private String randomName() {
@@ -82,10 +95,6 @@ public class StudentService {
     private int randomAge(int origin, int bound) {
         Random random = new Random();
         return random.nextInt(origin, bound);
-    }
-
-    private boolean checkStudentData(String name, int age) {
-        return !name.equals("") & name != null & age > 16;
     }
 
 }
