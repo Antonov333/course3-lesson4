@@ -55,9 +55,9 @@ public class FacultyController {
         return facultyService.deleteFaculty(id);
     }
 
-    @GetMapping(path = "/nameIgnoreCase")
-    public List<Faculty> findAllByNameIgnoreCase(@RequestParam(name = "name") String name) {
-        return facultyService.findByNameCaseTolerant(name);
+    @GetMapping(path = "/nameOrColorIgnoreCase")
+    public List<Faculty> findAllByNameIgnoreCase(@RequestParam(name = "search") String search) {
+        return facultyService.findByNameOrColorCaseTolerant(search);
     }
 
     @GetMapping(path = "/load")

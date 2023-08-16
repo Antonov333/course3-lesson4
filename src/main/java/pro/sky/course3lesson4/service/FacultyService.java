@@ -46,8 +46,8 @@ public class FacultyService {
         return facultyRepository.save(existingFaculty);
     }
 
-    public List<Faculty> findByNameCaseTolerant(String name) {
-        return facultyRepository.findAllByNameIgnoreCase(name);
+    public List<Faculty> findByNameOrColorCaseTolerant(String search) {
+        return facultyRepository.findAllByNameIgnoreCaseOrColorIgnoreCase(search, search);
     }
 
     public HashMap<Long, Faculty> loadExampleFaculties() {
